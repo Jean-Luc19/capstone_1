@@ -13,7 +13,7 @@ const WebFontConfig = {
   fontloading: function(familyName, fvd) {},
   fontactive: function(familyName, fvd) {
     $('#js-genHeader').hide().css("font-family", this.google.families[0]).fadeIn('fast');
-    $('#js-genParagraph').hide().css("font-family", this.google.families[0]).fadeIn('fast');
+    $('#js-genParagraph').hide().css("font-family", this.google.families[1]).fadeIn('fast');
   },
   fontinactive: function(familyName, fvd) {}
 };
@@ -28,8 +28,10 @@ function getData(){
 
 function getRandomFont(){
   const randomFont = appState.storedFonts[Math.floor(Math.random() * appState.storedFonts.length)];
+  const randomFont2 = appState.storedFonts[Math.floor(Math.random() * appState.storedFonts.length)];
   WebFontConfig.google.families.length = 0;
   WebFontConfig.google.families.push(randomFont);
+  WebFontConfig.google.families.push(randomFont2);
 }
 
 
@@ -48,7 +50,6 @@ function initializeClickHandlers(){
   $('#js-container').on("click", "#js-randomizeBtn", function(){
     getRandomFont();
     WebFont.load(WebFontConfig);
-    console.log(WebFontConfig.google.families);
   });
 }
 
@@ -56,17 +57,6 @@ $(function(){
   getData();
   initializeClickHandlers();
 });
-
-//trigger WebFont.load and pass in the WebFontConfig w/ our parameters
-//listen for the fontactive event to be complete
-//allow for another random at this time
-
-
-//assign desired font in fontloader config
-//run fontloader
-//use active callback to jquery something
-//????
-//profit
 
 
 
