@@ -7,18 +7,20 @@ const appState = {
 };
 const WebFontConfig = {
   google: {
-    families: createFontArray(appState)
+    families: []
   },
   loading: function() {},
   active: function() {},
   inactive: function() {},
-  fontloading: function(familyName, fvd) {},
+  fontloading: function(familyName, fvd) {$('#js-genHeader').text("Loading your fonts!").fadeIn('fast');},
   fontactive: function(familyName, fvd) {
     $('#js-genHeader').hide().css("font-family", appState.currentHeaderFont).fadeIn('fast');
     $('#js-genParagraph').hide().css("font-family", appState.currentParagraphFont).fadeIn('fast');
   },
   fontinactive: function(familyName, fvd) {}
 };
+
+
 
 function getData(){
   const query = {
@@ -27,16 +29,6 @@ function getData(){
   $.getJSON(URL, query, handleData);
 }
 
-
-function getRandomFont(){
-  const randomFont = appState.storedFonts[Math.floor(Math.random() * appState.storedFonts.length)];
-  const randomFont2 = appState.storedFonts[Math.floor(Math.random() * appState.storedFonts.length)];
-  WebFontConfig.google.families.length = 0;
-  WebFontConfig.google.families.push(randomFont);
-  WebFontConfig.google.families.push(randomFont2);
-}
-
-
 function handleData({items}){
   populateFontArray(items, appState.storedFonts);
 }
@@ -44,13 +36,24 @@ function handleData({items}){
 function populateFontArray(fonts, storedFonts){
   $.each(fonts, function(_index, {family, category, variants}){
     storedFonts.push(family);
-    //appState.storedFonts.push({family : family, category : category, variants : variants});
   });
+}
+
+function getRandomFonts(state){
+  state.currentHeaderFont = state.storedFonts[Math.floor(Math.random() * state.storedFonts.length)];
+  state.currentParagraphFont = state.storedFonts[Math.floor(Math.random() * state.storedFonts.length)];
+  console.log(state.currentHeaderFont + " / " + state.currentParagraphFont);
+}
+
+
+function generateCurrentFontArray({currentHeaderFont, currentParagraphFont}){
+  WebFontConfig.google.faamilies = [currentHeaderFont, currentParagraphFont];
 }
 
 function initializeClickHandlers(){
   $('#js-container').on("click", "#js-randomizeBtn", function(){
-    getRandomFont();
+    getRandomFonts(appState);
+    generateCurrentFontArray(appState)
     WebFont.load(WebFontConfig);
   });
 }
