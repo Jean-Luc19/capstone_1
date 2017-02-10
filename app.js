@@ -33,8 +33,9 @@ function handleResponseData({items}) {
 }
 
 function cacheFonts(fonts, cachedFonts) {
+  //display, serif, sans-serif, handwriting, monospace
   $.each(fonts, function (_index, {family, category, variants}) {
-    cachedFonts.push({family, category, variants});
+    console.log(category);
   });
 }
 
@@ -51,7 +52,6 @@ function updateFonts(state) {
   var newRandomIndex = () => Math.floor(Math.random() * state.cachedFonts.length);
   state.currentHeaderFont = state.cachedFonts[newRandomIndex()].family;
   state.currentParagraphFont = state.cachedFonts[newRandomIndex()].family;
-  console.log(appState);
 }
 
 function initializeClickHandlers() {
