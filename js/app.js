@@ -8,10 +8,10 @@ const appState = {
     handwriting: []
   },
   currentHeaderFont: "",
-  currentParagraphFont: "",
+  currentParaFont: "",
   userPreferences: {
-    headerFontCategory : "",
-    paragraphFontCategory : "",
+    headerFontCategory : "display",
+    paraFontCategory : "sans-serif",
     headerLocked: false,
     paraLocked: false
   }
@@ -27,7 +27,7 @@ function getData() {
 function updateWebFontConfig(state) {
   return webFontConfig = {
     google: {
-      families: [state.currentHeaderFont, state.currentParagraphFont]
+      families: [state.currentHeaderFont, state.currentParaFont]
     },
     loading: function () {},
     active: function () {},
@@ -52,21 +52,32 @@ function renderPage(state) {
   updateExampleElements(state);
 }
 
-function updateExampleElements({currentHeaderFont, currentParagraphFont}) {
+function updateExampleElements({currentHeaderFont, currentParaFont}) {
   $('#js-genHeader').css("font-family", currentHeaderFont);
-  $('.js-genPara').css("font-family", currentParagraphFont);
+  $('.js-genPara').css("font-family", currentParaFont);
 }
 
 //cant use object deconstruction here!
 function updateFonts(state) {
-  if(!state.userPreferences.headerLocked){state.currentHeaderFont = state.cachedFonts["sans-serif"][Math.floor(Math.random() * state.cachedFonts["sans-serif"].length)].family;}
-  if(!state.userPreferences.paraLocked){state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;}
+  if(!state.userPreferences.headerLocked){
+    state.currentHeaderFont = getRandomFont(state, "header");
+  }
+  if(!state.userPreferences.paraLocked){
+    state.currentParaFont = getRandomFont(state, "para");
+  }
+}
+
+function getRandomFont({cachedFonts, userPreferences}, element){
+  switch(element){
+    case "header" : return cachedFonts[userPreferences.headerFontCategory][Math.floor(Math.random() * cachedFonts[userPreferences.headerFontCategory].length)].family;
+    case "para" : return cachedFonts[userPreferences.paraFontCategory][Math.floor(Math.random() * cachedFonts[userPreferences.paraFontCategory].length)].family;
+  }
 }
 
 function initializeClickHandlers(state) {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
     updateFonts(state);
-    console.log(`H: ${appState.currentHeaderFont} / P: ${appState.currentParagraphFont}`); 
+    console.log(`H: ${appState.currentHeaderFont} / P: ${appState.currentParaFont}`); 
     WebFont.load(updateWebFontConfig(state));
   });
 
