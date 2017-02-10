@@ -80,6 +80,17 @@ function getRandomFont({cachedFonts, userPreferences}, element){
   }
 }
 
+function updateResults(state){
+  const headerAppended = state.currentHeaderFont.split(' ').join('+');
+  const paraAppended = state.currentParaFont.split(' ').join('+');
+  const container = $('.resultsBar');
+
+  container.find('#headerCode').html(`<pre><code>&lt;link href="https://fonts.googleapis.com/css?family=${headerAppended}" rel="stylesheet"&gt;</code></pre>`);
+  container.find('#paraCode').html(`<pre><code>&lt;link href="https://fonts.googleapis.com/css?family=${paraAppended}" rel="stylesheet"&gt;</code></pre>`);
+  container.find('#headerCSS').html(`<pre><code>font-family: '${state.currentHeaderFont}'</pre></code>`);
+  container.find('#paraCSS').html(`<pre><code>font-family: '${state.currentParaFont}'</pre></code>`);
+}
+
 function initializeClickHandlers(state) {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
     updateFonts(state); 
