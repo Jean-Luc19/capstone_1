@@ -1,5 +1,4 @@
 const URL = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAoq2H7SrmQO7EeyXNvdwYWXHYYM4Xh0Ms";
-const API_KEY = "AIzaSyAoq2H7SrmQO7EeyXNvdwYWXHYYM4Xh0Ms";
 const appState = {
   cachedFonts: {
     serif: [],
@@ -61,7 +60,7 @@ function updateExampleElements({currentHeaderFont, currentParagraphFont}) {
 //cant use object deconstruction here!
 function updateFonts(state) {
   if(!state.userPreferences.headerLocked){state.currentHeaderFont = state.cachedFonts["sans-serif"][Math.floor(Math.random() * state.cachedFonts["sans-serif"].length)].family;}
-  if(!state.userPreferences.paraLocked){state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;} 
+  if(!state.userPreferences.paraLocked){state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;}
 }
 
 function updatePreferences(newPrefs){
@@ -71,6 +70,7 @@ function updatePreferences(newPrefs){
 function initializeClickHandlers() {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
     updateFonts(appState);
+    console.log(`H: ${appState.currentHeaderFont} / P: ${appState.currentParagraphFont}`); 
     WebFont.load(updateWebFontConfig(appState));
   });
 
