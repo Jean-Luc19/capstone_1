@@ -83,7 +83,7 @@ function getRandomFont({cachedFonts, userPreferences}, element){
 function updateResults(state){
   const headerAppended = state.currentHeaderFont.split(' ').join('+');
   const paraAppended = state.currentParaFont.split(' ').join('+');
-  const container = $('.resultsBar');
+  const container = $('#js-container');
 
   container.find('#headerCode').html(`<pre><code>&lt;link href="https://fonts.googleapis.com/css?family=${headerAppended}" rel="stylesheet"&gt;</code></pre>`);
   container.find('#paraCode').html(`<pre><code>&lt;link href="https://fonts.googleapis.com/css?family=${paraAppended}" rel="stylesheet"&gt;</code></pre>`);

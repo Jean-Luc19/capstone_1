@@ -41,3 +41,6 @@ div.controls{
 #categoryDrops label{
   margin-left: 10px;
 }
+.results{
+  display: none;
+}
