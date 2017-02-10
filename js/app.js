@@ -91,6 +91,16 @@ function updateResults(state){
   container.find('#paraCSS').html(`<pre><code>font-family: '${state.currentParaFont}'</pre></code>`);
 }
 
+function flipLogoText(){
+  $("#logo").flipping_text({
+    tickerTime: 20, 
+    customRandomChar: false, 
+    tickerCount: 9, 
+    opacityEffect: false, 
+    resetOnChange: false
+  });
+}
+
 function initializeClickHandlers(state) {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
     updateFonts(state); 
@@ -122,4 +132,5 @@ function initializeClickHandlers(state) {
 $(function () {
   getData();
   initializeClickHandlers(appState);
+  flipLogoText();
 });
