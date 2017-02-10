@@ -85,9 +85,9 @@ function initializeClickHandlers(state) {
     updateFonts(state); 
     WebFont.load(updateWebFontConfig(state));
   });
-
+/// checking PUDH //////
   $("#js-container").on("click", "#js-resultsBtn", function(e) {
-    $(".headerResult").append(`<pre><code><link href="https://fonts.googleapis.com/css?family=${state.currentHeaderFont})" rel="stylesheet"></code></pre>`);
+    $(".headerResult").html(`<pre><code>&lt;link href="https://fonts.googleapis.com/css?family=${state.currentHeaderFont})" rel="stylesheet"&gt;</code></pre>`);
     console.log("working");
   });
 
@@ -107,7 +107,7 @@ function initializeClickHandlers(state) {
   state.userPreferences.paraFontCategory = $(e.currentTarget).val();
   });
 }
-
+///// turbo dookie //////
 $(function () {
   getData();
   initializeClickHandlers(appState);
