@@ -1,68 +1,67 @@
 const URL = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAoq2H7SrmQO7EeyXNvdwYWXHYYM4Xh0Ms";
 const API_KEY = "AIzaSyAoq2H7SrmQO7EeyXNvdwYWXHYYM4Xh0Ms";
 const appState = {
-  storedFonts : [],
-  currentHeaderFont : "",
-  currentParagraphFont : ""
-};
-const WebFontConfig = {
-  google: {
-    families: []
-  },
-  loading: function() {},
-  active: function() {},
-  inactive: function() {},
-  fontloading: function(familyName, fvd) {$('#js-genHeader').text("Loading your fonts!").fadeIn('fast');},
-  fontactive: function(familyName, fvd) {
-    $('#js-genHeader').hide().css("font-family", appState.currentHeaderFont).fadeIn('fast');
-    $('#js-genParagraph').hide().css("font-family", appState.currentParagraphFont).fadeIn('fast');
-  },
-  fontinactive: function(familyName, fvd) {}
+  cachedFonts: [],
+  currentHeaderFont: "",
+  currentParagraphFont: "",
+  currentWebFontConfig: {}
 };
 
-
-
-function getData(){
+function getData() {
   const query = {
     sort: "popularity"
   };
-  $.getJSON(URL, query, handleData);
+  $.getJSON(URL, query, handleResponseData);
 }
 
-function handleData({items}){
-  populateFontArray(items, appState.storedFonts);
+function updateWebFontConfig(state) {
+  return webFontConfig = {
+    google: {
+      families: [state.currentHeaderFont, state.currentParagraphFont]
+    },
+    loading: function () {},
+    active: function () {},
+    inactive: function () {},
+    fontloading: function (familyName, fvd) {},
+    fontactive: function (familyName, fvd) {renderPage(state);},
+    fontinactive: function (familyName, fvd) {}
+  };
 }
 
-function populateFontArray(fonts, storedFonts){
-  $.each(fonts, function(_index, {family, category, variants}){
-    storedFonts.push(family);
+function handleResponseData({items}) {
+  cacheFonts(items, appState.cachedFonts);
+}
+
+function cacheFonts(fonts, cachedFonts) {
+  $.each(fonts, function (_index, {family, category, variants}) {
+    cachedFonts.push({family, category, variants});
   });
 }
 
-function getRandomFonts(state){
-  state.currentHeaderFont = state.storedFonts[Math.floor(Math.random() * state.storedFonts.length)];
-  state.currentParagraphFont = state.storedFonts[Math.floor(Math.random() * state.storedFonts.length)];
-  console.log(state.currentHeaderFont + " / " + state.currentParagraphFont);
+function renderPage(state) {
+  updateExampleElements(state);
 }
 
-
-function generateCurrentFontArray({currentHeaderFont, currentParagraphFont}){
-  WebFontConfig.google.faamilies = [currentHeaderFont, currentParagraphFont];
+function updateExampleElements({currentHeaderFont, currentParagraphFont}) {
+  $('#js-genHeader').css("font-family", currentHeaderFont);
+  $('#js-genParagraph').css("font-family", currentParagraphFont);
 }
 
-function initializeClickHandlers(){
-  $('#js-container').on("click", "#js-randomizeBtn", function(){
-    getRandomFonts(appState);
-    generateCurrentFontArray(appState)
-    WebFont.load(WebFontConfig);
+function updateFonts(state) {
+  var newRandomIndex = () => Math.floor(Math.random() * state.cachedFonts.length);
+  state.currentHeaderFont = state.cachedFonts[newRandomIndex()].family;
+  state.currentParagraphFont = state.cachedFonts[newRandomIndex()].family;
+  console.log(appState);
+}
+
+function initializeClickHandlers() {
+  $('#js-container').on("click", "#js-randomizeBtn", function () {
+    updateFonts(appState);
+    WebFont.load(updateWebFontConfig(appState));
   });
 }
 
-$(function(){
+$(function () {
   getData();
   initializeClickHandlers();
 });
-
-
-
-
