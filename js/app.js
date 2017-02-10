@@ -87,8 +87,8 @@ function initializeClickHandlers(state) {
   });
 /// checking PUDH //////
   $("#js-container").on("click", "#js-resultsBtn", function(e) {
-    $(".headerResult").html(`<pre><code>&lt;link href="https://fonts.googleapis.com/css?family=${state.currentHeaderFont})" rel="stylesheet"&gt;</code></pre>`);
-    console.log("working");
+    updateResults(state);
+    $('.results').toggle();
   });
 
   $('#js-container').on("click", "#js-headerLockBtn", function () {
