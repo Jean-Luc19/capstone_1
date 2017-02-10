@@ -10,8 +10,8 @@ const appState = {
   currentHeaderFont: "",
   currentParaFont: "",
   userPreferences: {
-    headerFontCategory : "display",
-    paraFontCategory : "sans-serif",
+    headerFontCategory : "sans-serif",
+    paraFontCategory : "serif",
     headerLocked: false,
     paraLocked: false
   }
@@ -87,6 +87,14 @@ function initializeClickHandlers(state) {
 
   $('#js-container').on("click", "#js-paraLockBtn", function () {
     state.userPreferences.paraLocked = !state.userPreferences.paraLocked;
+  });
+
+  $('#js-container').on("change", "#js-headerCategories", function(e){
+    state.userPreferences.headerFontCategory = $(e.currentTarget).val();
+  });
+
+  $('#js-container').on("change", "#js-paraCategories", function(e){
+  state.userPreferences.paraFontCategory = $(e.currentTarget).val();
   });
 }
 
