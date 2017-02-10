@@ -44,7 +44,6 @@ function handleResponseData({items}) {
 }
 
 function cacheFonts(fonts, cachedFonts) {
-  //display, serif, sans-serif, handwriting, monospace
   $.each(fonts, function (_index, {family, category, variants}) {
     cachedFonts[category].push({family, category, variants});
   });
@@ -56,9 +55,10 @@ function renderPage(state) {
 
 function updateExampleElements({currentHeaderFont, currentParagraphFont}) {
   $('#js-genHeader').css("font-family", currentHeaderFont);
-  $('#js-genParagraph').css("font-family", currentParagraphFont);
+  $('.js-genPara').css("font-family", currentParagraphFont);
 }
 
+//cant use object deconstruction here!
 function updateFonts(state) {
   if(!state.userPreferences.headerLocked){state.currentHeaderFont = state.cachedFonts["sans-serif"][Math.floor(Math.random() * state.cachedFonts["sans-serif"].length)].family;}
   if(!state.userPreferences.paraLocked){state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;} 
@@ -76,12 +76,10 @@ function initializeClickHandlers() {
 
   $('#js-container').on("click", "#js-headerLockBtn", function () {
     appState.userPreferences.headerLocked = !appState.userPreferences.headerLocked;
-    console.log(appState.userPreferences.headerLocked);
   });
 
   $('#js-container').on("click", "#js-paraLockBtn", function () {
     appState.userPreferences.paraLocked = !appState.userPreferences.paraLocked;
-    console.log(appState.userPreferences.paraLocked);
   });
 }
 

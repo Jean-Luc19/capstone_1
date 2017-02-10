@@ -1,0 +1,27 @@
+*{
+  box-sizing: border-box;
+}
+
+.container{
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.genHeader{
+  text-align: center;
+}
+
+div#paragraphs {
+  margin: 30px;
+}
+
+div#paragraphs p:not(:first-child){
+  width: 500px;
+  display: inline-block;
+}
+
+div#paragraphs p:last-child{
+  float: right;
+  width: 500px;
+  display: inline-block;
+}
