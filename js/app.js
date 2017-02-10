@@ -10,7 +10,12 @@ const appState = {
   },
   currentHeaderFont: "",
   currentParagraphFont: "",
-  currentWebFontConfig: {}
+  userPreferences: {
+    headerFontCategory : "",
+    paragraphFontCategory : "",
+    headerLocked: false,
+    paraLocked: false
+  }
 };
 
 function getData() {
@@ -55,15 +60,28 @@ function updateExampleElements({currentHeaderFont, currentParagraphFont}) {
 }
 
 function updateFonts(state) {
-  //var newRandomIndex = () => Math.floor(Math.random() * state.cachedFonts.length);
-  state.currentHeaderFont = state.cachedFonts["sans-serif"][Math.floor(Math.random() * state.cachedFonts["sans-serif"].length)].family;
-  state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;
+  if(!state.userPreferences.headerLocked){state.currentHeaderFont = state.cachedFonts["sans-serif"][Math.floor(Math.random() * state.cachedFonts["sans-serif"].length)].family;}
+  if(!state.userPreferences.paraLocked){state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;} 
+}
+
+function updatePreferences(newPrefs){
+
 }
 
 function initializeClickHandlers() {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
     updateFonts(appState);
     WebFont.load(updateWebFontConfig(appState));
+  });
+
+  $('#js-container').on("click", "#js-headerLockBtn", function () {
+    appState.userPreferences.headerLocked = !appState.userPreferences.headerLocked;
+    console.log(appState.userPreferences.headerLocked);
+  });
+
+  $('#js-container').on("click", "#js-paraLockBtn", function () {
+    appState.userPreferences.paraLocked = !appState.userPreferences.paraLocked;
+    console.log(appState.userPreferences.paraLocked);
   });
 }
 
