@@ -82,9 +82,13 @@ function getRandomFont({cachedFonts, userPreferences}, element){
 
 function initializeClickHandlers(state) {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
-    updateFonts(state);
-    console.log(`H: ${appState.currentHeaderFont} / P: ${appState.currentParaFont}`); 
+    updateFonts(state); 
     WebFont.load(updateWebFontConfig(state));
+  });
+
+  $("#js-container").on("click", "#js-resultsBtn", function(e) {
+    $(".headerResult").append(`<pre><code><link href="https://fonts.googleapis.com/css?family=${state.currentHeaderFont})" rel="stylesheet"></code></pre>`);
+    console.log("working");
   });
 
   $('#js-container').on("click", "#js-headerLockBtn", function () {
