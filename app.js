@@ -1,7 +1,13 @@
 const URL = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAoq2H7SrmQO7EeyXNvdwYWXHYYM4Xh0Ms";
 const API_KEY = "AIzaSyAoq2H7SrmQO7EeyXNvdwYWXHYYM4Xh0Ms";
 const appState = {
-  cachedFonts: [],
+  cachedFonts: {
+    serif: [],
+    "sans-serif": [],
+    display: [],
+    monospace: [],
+    handwriting: []
+  },
   currentHeaderFont: "",
   currentParagraphFont: "",
   currentWebFontConfig: {}
@@ -35,7 +41,7 @@ function handleResponseData({items}) {
 function cacheFonts(fonts, cachedFonts) {
   //display, serif, sans-serif, handwriting, monospace
   $.each(fonts, function (_index, {family, category, variants}) {
-    console.log(category);
+    cachedFonts[category].push({family, category, variants});
   });
 }
 
@@ -49,9 +55,9 @@ function updateExampleElements({currentHeaderFont, currentParagraphFont}) {
 }
 
 function updateFonts(state) {
-  var newRandomIndex = () => Math.floor(Math.random() * state.cachedFonts.length);
-  state.currentHeaderFont = state.cachedFonts[newRandomIndex()].family;
-  state.currentParagraphFont = state.cachedFonts[newRandomIndex()].family;
+  //var newRandomIndex = () => Math.floor(Math.random() * state.cachedFonts.length);
+  state.currentHeaderFont = state.cachedFonts["sans-serif"][Math.floor(Math.random() * state.cachedFonts["sans-serif"].length)].family;
+  state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;
 }
 
 function initializeClickHandlers() {
