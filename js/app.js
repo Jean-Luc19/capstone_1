@@ -67,23 +67,23 @@ function updatePreferences(newPrefs){
 
 }
 
-function initializeClickHandlers() {
+function initializeClickHandlers(state) {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
-    updateFonts(appState);
+    updateFonts(state);
     console.log(`H: ${appState.currentHeaderFont} / P: ${appState.currentParagraphFont}`); 
-    WebFont.load(updateWebFontConfig(appState));
+    WebFont.load(updateWebFontConfig(state));
   });
 
   $('#js-container').on("click", "#js-headerLockBtn", function () {
-    appState.userPreferences.headerLocked = !appState.userPreferences.headerLocked;
+    state.userPreferences.headerLocked = !state.userPreferences.headerLocked;
   });
 
   $('#js-container').on("click", "#js-paraLockBtn", function () {
-    appState.userPreferences.paraLocked = !appState.userPreferences.paraLocked;
+    state.userPreferences.paraLocked = !state.userPreferences.paraLocked;
   });
 }
 
 $(function () {
   getData();
-  initializeClickHandlers();
+  initializeClickHandlers(appState);
 });
