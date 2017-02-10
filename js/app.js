@@ -50,11 +50,17 @@ function cacheFonts(fonts, cachedFonts) {
 
 function renderPage(state) {
   updateExampleElements(state);
+  updateCurrentFontNames(state);
 }
 
 function updateExampleElements({currentHeaderFont, currentParaFont}) {
   $('#js-genHeader').css("font-family", currentHeaderFont);
   $('.js-genPara').css("font-family", currentParaFont);
+}
+
+function updateCurrentFontNames({currentHeaderFont, currentParaFont}){
+  $('#currentHeaderFont').html(currentHeaderFont);
+  $('#currentParaFont').html(currentParaFont);
 }
 
 //cant use object deconstruction here!

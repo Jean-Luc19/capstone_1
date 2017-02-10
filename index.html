@@ -33,11 +33,17 @@
                     <button id="js-randomizeBtn">Randomize!</button>
                 </div>
                 <div id="locks">
-                    <label><input type="checkbox" id="js-headerLockBtn">Lock Header</label>
-                    <label><input type="checkbox" id="js-paraLockBtn">Lock Paragraphs</label>
+                    <div>
+                        <label><input type="checkbox" id="js-headerLockBtn">Lock Header</label>
+                        <p id="currentHeaderFont"></p>
+                    </div>
+                    <div>
+                        <label><input type="checkbox" id="js-paraLockBtn">Lock Paragraphs</label>
+                        <p id="currentParaFont"></p>
+                    </div>
                 </div>
                 <div id="categoryDrops">
-                    <label for="headerCategories">Header Font Type:</label>
+                    <label for="headerCategories">Header Type:</label>
                     <select name="headerCategories" id="js-headerCategories">
                         <option value="sans-serif">Sans-serif</option>
                         <option value="serif">Serif</option>
@@ -45,7 +51,7 @@
                         <option value="handwriting">Handwriting</option>
                         <option value="monospace">Monospace</option>
                     </select>
-                    <label for="paraCategories">Paragraph Font Type:</label>
+                    <label for="paraCategories">Paragraph Type:</label>
                     <select name="paraCategories" id="js-paraCategories">
                         <option value="serif">Serif</option>
                         <option value="sans-serif">Sans-serif</option>

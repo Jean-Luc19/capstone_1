@@ -31,6 +31,10 @@ div.controls div{
   display: inline-block;
 }
 
+div.controls{
+  margin-left: 25px;
+}
+
 #categoryDrops{
   margin-top: 2px;
 }
