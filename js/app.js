@@ -63,10 +63,6 @@ function updateFonts(state) {
   if(!state.userPreferences.paraLocked){state.currentParagraphFont = state.cachedFonts.serif[Math.floor(Math.random() * state.cachedFonts.serif.length)].family;}
 }
 
-function updatePreferences(newPrefs){
-
-}
-
 function initializeClickHandlers(state) {
   $('#js-container').on("click", "#js-randomizeBtn", function () {
     updateFonts(state);
