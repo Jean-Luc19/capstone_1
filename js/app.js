@@ -106,7 +106,7 @@ function initializeClickHandlers(state) {
     updateFonts(state); 
     WebFont.load(updateWebFontConfig(state));
   });
-/// checking PUDH //////
+
   $("#js-container").on("click", "#js-resultsBtn", function(e) {
     updateResults(state);
     $('.results').toggle();
@@ -128,7 +128,7 @@ function initializeClickHandlers(state) {
   state.userPreferences.paraFontCategory = $(e.currentTarget).val();
   });
 }
-///// turbo dookie //////
+
 $(function () {
   getData();
   initializeClickHandlers(appState);
